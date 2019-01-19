@@ -1,13 +1,15 @@
 class Deck
 {
   constructor(array) {
-    var deck = [];
-    array.forEach(function(img) {
-      deck.push(new Card(img));
-    });
-
-    this._deck = deck;
+    this._deck = [];
+    if (Array.isArray(array))
+    {
+      array.forEach(function(img) {
+        this._deck.push(new Card(img));
+      }, this);
+    }
   }
+
   get length()
   {
     return this._deck.length;
@@ -34,6 +36,24 @@ class Deck
   draw()
   {
       return this._deck.pop();
+  }
+
+  addCard(card)
+  {
+    this._deck.push(card);
+  }
+
+  addDeck(deck)
+  {
+    this._deck = this._deck.concat(deck.empty());
+  }
+
+  empty()
+  {
+    let emptiedCards = this._deck.slice();
+    this._deck = [];
+
+    return emptiedCards;
   }
 
   toString()

@@ -1,4 +1,4 @@
-var CardMap = {
+var CardDictionary = {
   base_plus_2: "m2",
   base_plus_1: "m1",
   base_plus_0: "m0",

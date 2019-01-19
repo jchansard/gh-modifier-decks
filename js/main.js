@@ -1,3 +1,4 @@
 let deckService = new DeckService();
-let deckController = new DeckController(deckService);
-let loadingController = new LoadingController(savedDecks, deckService);
+let logger = new Logger("log");
+let deckController = new DeckController(deckService, logger);
+let loadingController = new LoadingController(savedDecks, deckService, logger);

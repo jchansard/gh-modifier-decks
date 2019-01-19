@@ -4,8 +4,8 @@ class Deck
     this._deck = [];
     if (Array.isArray(array))
     {
-      array.forEach(function(img) {
-        this._deck.push(new Card(img));
+      array.forEach(function(cardData) {
+        this._deck.push(new Card(cardData));
       }, this);
     }
   }
@@ -13,6 +13,11 @@ class Deck
   get length()
   {
     return this._deck.length;
+  }
+
+  getCard(index)
+  {
+    return this._deck[index];
   }
 
   shuffle()
@@ -31,6 +36,7 @@ class Deck
   	}
 
   	this._deck = shuffledDeck;
+    return this;
   }
 
   draw()
@@ -41,6 +47,11 @@ class Deck
   addCard(card)
   {
     this._deck.push(card);
+  }
+
+  removeCard(index)
+  {
+    this._deck.splice(index, 1);
   }
 
   addDeck(deck)
@@ -64,8 +75,10 @@ class Deck
 
 class Card
 {
-  constructor(img)
+  constructor(cardData)
   {
-    this.img = "assets/" + img + ".jpg";
+    this.name = cardData.name;
+    this.img = "assets/" + cardData.img + ".jpg";
+    this.discardOnPlay = cardData.discardOnPlay || false;
   }
 }

@@ -11,7 +11,7 @@ function draw()
 {
   if (!deck) return;
   var card = deck.draw();
-  deckElement.innerHTML = "<img src=" + card.img + "/>";
+  deckElement.innerHTML = `<img src="${card.img}"/>`;
 }
 
 function shuffle()

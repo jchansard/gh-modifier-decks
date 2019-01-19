@@ -46,6 +46,6 @@ class Card
 {
   constructor(img)
   {
-    this.img = "assets\\" + img + ".jpg";
+    this.img = "assets/" + img + ".jpg";
   }
 }

@@ -151,7 +151,7 @@ header select option
   margin: auto;
   padding-left: .5em;
   padding-right: .5em;
-  border-radius: 20px;
+  border-radius: 5%;
 }
 
 @media (max-width: 1000px)

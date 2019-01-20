@@ -6,15 +6,17 @@ class DeckController
     this._inPlayDeck = new Deck();
     this._drawDeck = new Deck();
     this._$cardsInPlayElement = null;
+    this._$cardContainerElement = null;
     this._logger = logger;
     this.init();
   }
 
   init()
   {
-    this._$cardsInPlayElement = $("#card-container");
+    this._$cardsInPlayElement = $("#card-play-area");
+    this._$cardContainerElement = $("#card-container");
     this._$logElement = $("#log");
-    $("button#draw-one,#card-container").on("click touch", this._handleDraw.bind(this));
+    $("button#draw-one,#card-play-area").on("click touch", this._handleDraw.bind(this));
     $("button#draw-two").on("click touch", this._handleDrawTwo.bind(this));
     $("button#shuffle").on("click touch", this._handleShuffle.bind(this));
     $("button#add-blessing").on("click touch", this._handleAddBlessing.bind(this));
@@ -29,6 +31,13 @@ class DeckController
     this._playedDeck = new Deck();
     this._inPlayDeck = new Deck();
     this._resetDrawDeck(false);
+
+    // set the card container's minimum height so the layout stays steady when
+    // loading images
+    let $cardContainer = this._$cardContainerElement;
+    $("img.card").on("load", function() {
+      $cardContainer.css("min-height", this.height)
+    });
   }
 
   _handleDraw()
@@ -81,7 +90,7 @@ class DeckController
     this._logger.log(`Drew a ${card.name}.`);
 
     this._inPlayDeck.addCard(card);
-    this._drawInPlayDeck();
+    this._paintInPlayDeck();
   }
 
   _resetDrawDeck(shouldShuffle)
@@ -94,11 +103,12 @@ class DeckController
     if (shouldShuffle) {
       this._shuffle();
     }
-    this._drawInPlayDeck();
+    this._paintInPlayDeck();
   }
 
   _discardInPlayCards()
   {
+    this._$cardContainerElement.css("min-height", this._$cardContainerElement.height());
     this._$cardsInPlayElement.empty();
     this._removeOneTimeCardsFromPlay()
     this._playedDeck.addDeck(this._inPlayDeck);
@@ -126,7 +136,7 @@ class DeckController
     this._shuffle();
   }
 
-  _drawInPlayDeck()
+  _paintInPlayDeck()
   {
     if (this._inPlayDeck.length > 0)
     {
@@ -134,7 +144,7 @@ class DeckController
       this._inPlayDeck.forEach(function(card) {
         let $img = $(`<img class="card" src="${card.img}"/>`).hide();
         this._$cardsInPlayElement.append($img);
-        $img.fadeIn(250);
+        $img.slideDown(200);
       }, this)
     }
     else

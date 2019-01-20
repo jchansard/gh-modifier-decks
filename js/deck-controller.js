@@ -28,7 +28,7 @@ class DeckController
 
     // set the card container's minimum height so the layout stays steady when loading images
     let $cardContainerElement = this._$cardContainerElement;
-    $(document).ready(function()
+    $(window).on("load", function()
     {
       $cardContainerElement.css('min-height', $cardContainerElement.height());
     });
@@ -102,7 +102,7 @@ class DeckController
   {
     if (this._playedDeck.length > 0)
     {
-      this._logger.log("Adding played cards to draw deck.")
+      this._logger.log("Added played cards to draw deck.");
       this._drawDeck.addDeck(this._playedDeck);
     }
     if (shouldShuffle) {
@@ -114,7 +114,7 @@ class DeckController
   _discardInPlayCards()
   {
     this._$cardsInPlayElement.empty();
-    this._removeOneTimeCardsFromPlay()
+    this._removeOneTimeCardsFromPlay();
     this._playedDeck.addDeck(this._inPlayDeck);
   }
 
@@ -126,7 +126,7 @@ class DeckController
       card = this._inPlayDeck.getCard(i);
       if (card.discardOnPlay)
       {
-        this._logger.log(`Removing ${card.name} from deck.`)
+        this._logger.log(`Removed ${card.name} from deck.`);
         this._inPlayDeck.removeCard(i);
         this._modifyCounter(`add-${card.name}`, -1);
       }
@@ -135,24 +135,23 @@ class DeckController
 
   _addToDrawDeckAndShuffle(card)
   {
-    this._logger.log(`Adding ${card.name} to deck.`)
+    this._logger.log(`Added ${card.name} to deck.`);
     this._drawDeck.addCard(card);
     this._shuffle();
   }
 
   _paintInPlayDeck()
   {
+    this._$cardsInPlayElement.empty();
     if (this._inPlayDeck.length > 0)
     {
-      this._$cardsInPlayElement.empty();
       this._inPlayDeck.forEach(function(card) {
-        this._$cardsInPlayElement.append(this._imageService.get(card.img));
-        this._$cardsInPlayElement.children("img").fadeIn(200);
-      }, this)
+        this._$cardsInPlayElement.append(this._imageService.get(card.img, true));
+      }, this);
     }
     else
     {
-      this._$cardsInPlayElement.html(`<img class="card" src="assets/back.jpg"/>`);
+      this._$cardsInPlayElement.append(this._imageService.get(new Card(CardDictionary.card_back).img));
     }
   }
 
@@ -169,6 +168,6 @@ class DeckController
   _shuffle()
   {
     this._drawDeck.shuffle();
-    this._logger.log("Shuffling draw deck.")
+    this._logger.log("Shuffled draw deck.");
   }
 }

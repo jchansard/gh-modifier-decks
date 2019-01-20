@@ -4,6 +4,7 @@ class ImageService
   {
     this._images = {}; // src: Image dictionary
     this._dictionary = cardDictionary;
+    this._root = "";
     this.init();
   }
 
@@ -14,15 +15,15 @@ class ImageService
     {
       let imgSrc = this._dictionary[key].img;
       preloadImg = new Image();
-      preloadImg.src = imgSrc;
-      preloadImg.style.display = "none";
+      preloadImg.src =  this._root + imgSrc;
       this._images[imgSrc] = preloadImg;
     }, this);
   }
 
-  get(src)
+  get(src, animate)
   {
-    return this._images[src].cloneNode();
+    let img = this._images[src].cloneNode();
+    return (animate) ? $(img).hide().on("load", function() { $(this).fadeIn(200); }) : img;
   }
 
 }

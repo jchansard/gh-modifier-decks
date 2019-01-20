@@ -1,4 +1,8 @@
 var CardDictionary = {
+  card_back:
+  {
+    img: "assets/back.jpg"
+  },
   base_plus_2:
   {
     name: "plus 2",

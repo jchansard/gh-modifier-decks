@@ -25,6 +25,13 @@ class DeckController
     $("button#add-curse").on("click touch", this._handleAddCurse.bind(this));
 
     this._deckService.onDeckChange(this._updateDeck.bind(this));
+
+    // set the card container's minimum height so the layout stays steady when loading images
+    let $cardContainerElement = this._$cardContainerElement;
+    $(document).ready(function()
+    {
+      $cardContainerElement.css('min-height', $cardContainerElement.height());
+    });
   }
 
   _updateDeck(newDeck)
@@ -34,12 +41,8 @@ class DeckController
     this._inPlayDeck = new Deck();
     this._resetDrawDeck(false);
 
-    // set the card container's minimum height so the layout stays steady when
-    // loading images
+
     let $cardContainer = this._$cardContainerElement;
-    $cardContainer.children("img").on("load", function() {
-      $cardContainer.css("min-height", this.height)
-    });
   }
 
   _handleDraw()
@@ -110,7 +113,6 @@ class DeckController
 
   _discardInPlayCards()
   {
-    this._$cardContainerElement.css("min-height", this._$cardContainerElement.height());
     this._$cardsInPlayElement.empty();
     this._removeOneTimeCardsFromPlay()
     this._playedDeck.addDeck(this._inPlayDeck);
@@ -145,7 +147,7 @@ class DeckController
       this._$cardsInPlayElement.empty();
       this._inPlayDeck.forEach(function(card) {
         this._$cardsInPlayElement.append(this._imageService.get(card.img));
-        this._$cardsInPlayElement.children("img").slideDown(200);
+        this._$cardsInPlayElement.children("img").fadeIn(200);
       }, this)
     }
     else

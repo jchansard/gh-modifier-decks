@@ -144,9 +144,10 @@ class DeckController
   _modifyCounter(elementID, toAdd)
   {
     let buttonHTML = $(`#${elementID}`).html();
-    let counter = buttonHTML.match(/\((\d)\)/)[1];
+    let countRegEx = /\((\d+)\)/;
+    let counter = buttonHTML.match(countRegEx)[1];
     counter = parseInt(counter) + toAdd;
-    $(`#${elementID}`).html(buttonHTML.replace(/\((\d)\)/,`(${counter})`));
+    $(`#${elementID}`).html(buttonHTML.replace(countRegEx,`(${counter})`));
 
   }
 

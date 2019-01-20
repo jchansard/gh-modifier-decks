@@ -7,11 +7,32 @@ body
   background-color: #0E0B16;
 }
 
-#container
+@media (min-width: 1000px)
 {
-  margin: 0 auto;
-  width: 50%;
-  min-width: 400px;
+  body
+  {
+    font-size: 1.5em;
+  }
+
+  #container
+  {
+    margin: 0 auto;
+    width: 50%;
+    min-width: 400px;
+  }
+}
+
+@media (max-width: 1000px)
+{
+  body
+  {
+    font-size: 3em;
+  }
+  #container
+  {
+    width: 90%;
+    margin: 0 auto;
+  }
 }
 
 /* header */
@@ -22,18 +43,22 @@ header
 header label
 {
   font-family: "Pirata One", serif;
-  font-size: 1.5em;
   color: #E7DFDD;
 }
 
 header select
 {
-  font-size: 1.5em;
   font-family: "Pirata One", serif;
+  font-size: 1em;
   background-color: #0E0B16;
   color: #E7DFDD;
   border: 0px;
   padding-right: .2em;
+}
+
+header select option
+{
+  font-size: .67em;
 }
 
 /* content containers*/
@@ -48,9 +73,12 @@ header select
   text-align: right;
 }
 
-#blessing-counter-container, #curse-counter-container
+@media (min-width: 1000px)
 {
-  display: inline-block;
+  #blessing-counter-container, #curse-counter-container
+  {
+    display: inline-block;
+  }
 }
 
 /* log */
@@ -58,21 +86,33 @@ header select
 {
   text-align: left;
   font-family: "Open Sans", sans-serif;
+  font-size: .67em;
   color: #E7DFDD;
   max-height: 24em;
   overflow: auto;
   border: 1px solid #605F5D;
 }
 
+#log ul
+{
+  padding-left: 0px;
+  margin: 1em 1em;
+}
+
 #log ul li
 {
   list-style-type: none;
+  padding: 0em 1em;
+}
+
+#log ul li:nth-child(even)
+{
+  background-color: #1E1B26;
 }
 
 #log ul li span.timestamp
 {
   float: right;
-  padding-right: 1em;
   font-style: italic;
 }
 
@@ -90,7 +130,20 @@ header select
   padding-right: .5em;
 }
 
+@media (max-width: 1000px)
+{
+  #content button
+  {
+    width: 90%;
+    min-width: 6em;
+    min-height: 2em;
+    font-size: 2em;
+    margin: 0.2em 0em;
+  }
+}
+
 /* cards */
+
 #deck-in-play img.card
 {
   display: inline-block;
@@ -99,4 +152,12 @@ header select
   padding-left: .5em;
   padding-right: .5em;
   border-radius: 20px;
+}
+
+@media (max-width: 1000px)
+{
+  #deck-in-play img.card
+  {
+    max-width: 90%;
+  }
 }

@@ -4,6 +4,7 @@ let deckController = new DeckController(deckService, logger);
 let loadingController = new LoadingController(savedDecks, deckService, logger);
 
 // load images when ready
+let images = [];
 $(document).ready(function()
 {
   let preloadImg;
@@ -11,5 +12,6 @@ $(document).ready(function()
   {
     preloadImg = new Image();
     preloadImg.src = CardDictionary[key].img;
+    images.push(preloadImg);
   });
 })

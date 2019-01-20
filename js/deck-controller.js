@@ -1,7 +1,9 @@
 class DeckController
 {
-  constructor(deckService, logger)
+  constructor(deckService, imageService, logger)
   {
+    this._deckService = deckService;
+    this._imageService = imageService;
     this._playedDeck = new Deck();
     this._inPlayDeck = new Deck();
     this._drawDeck = new Deck();
@@ -22,7 +24,7 @@ class DeckController
     $("button#add-blessing").on("click touch", this._handleAddBlessing.bind(this));
     $("button#add-curse").on("click touch", this._handleAddCurse.bind(this));
 
-    deckService.onDeckChange(this._updateDeck.bind(this));
+    this._deckService.onDeckChange(this._updateDeck.bind(this));
   }
 
   _updateDeck(newDeck)
@@ -35,7 +37,7 @@ class DeckController
     // set the card container's minimum height so the layout stays steady when
     // loading images
     let $cardContainer = this._$cardContainerElement;
-    $("img.card").on("load", function() {
+    $cardContainer.children("img").on("load", function() {
       $cardContainer.css("min-height", this.height)
     });
   }
@@ -142,9 +144,8 @@ class DeckController
     {
       this._$cardsInPlayElement.empty();
       this._inPlayDeck.forEach(function(card) {
-        let $img = $(`<img class="card" src="${card.img}"/>`).hide();
-        this._$cardsInPlayElement.append($img);
-        $img.slideDown(200);
+        this._$cardsInPlayElement.append(this._imageService.get(card.img));
+        this._$cardsInPlayElement.children("img").slideDown(200);
       }, this)
     }
     else

@@ -144,7 +144,7 @@ header select option
 
 /* cards */
 
-#deck-in-play img.card
+#deck-in-play img
 {
   display: inline-block;
   max-width: 40%;
@@ -156,7 +156,7 @@ header select option
 
 @media (max-width: 1000px)
 {
-  #deck-in-play img.card
+  #deck-in-play img
   {
     max-width: 90%;
   }

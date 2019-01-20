@@ -13,7 +13,8 @@ class Logger
 
   log(text)
   {
-    this._$element.children("ul").append(`<li>${text}</li>`);
+    let time = new Date();
+    this._$element.children("ul").append(`<li>${text} <span class="timestamp">${time.toLocaleTimeString()}</span></li>`);
     this._$element.scrollTop(1e9);
   }
 }

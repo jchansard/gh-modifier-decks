@@ -4,7 +4,7 @@
 /* body and container*/
 body
 {
-  background-color: black;
+  background-color: #0E0B16;
 }
 
 #container
@@ -23,15 +23,15 @@ header label
 {
   font-family: "Pirata One", serif;
   font-size: 1.5em;
-  color: #DFEBE7;
+  color: #E7DFDD;
 }
 
 header select
 {
   font-size: 1.5em;
   font-family: "Pirata One", serif;
-  background-color: black;
-  color: #DFEBE7;
+  background-color: #0E0B16;
+  color: #E7DFDD;
   border: 0px;
   padding-right: .2em;
 }
@@ -58,7 +58,7 @@ header select
 {
   text-align: left;
   font-family: "Open Sans", sans-serif;
-  color: #DFEBE7;
+  color: #E7DFDD;
   max-height: 24em;
   overflow: auto;
   border: 1px solid #605F5D;
@@ -69,12 +69,19 @@ header select
   list-style-type: none;
 }
 
+#log ul li span.timestamp
+{
+  float: right;
+  padding-right: 1em;
+  font-style: italic;
+}
+
 /* buttons */
 #content button
 {
   font-family: "Pirata One", serif;
-  background-color: #DFEBE7;
-  color: #2C2822;
+  background-color: #E7DFDD;
+  color: #0E0B16;
   font-size: 2em;
   border: 0px;
   min-width: 5em;

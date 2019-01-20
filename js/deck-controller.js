@@ -132,7 +132,9 @@ class DeckController
     {
       this._$cardsInPlayElement.empty();
       this._inPlayDeck.forEach(function(card) {
-        this._$cardsInPlayElement.append(`<img class="card" src="${card.img}"/>`);
+        let $img = $(`<img class="card" src="${card.img}"/>`).hide();
+        this._$cardsInPlayElement.append($img);
+        $img.fadeIn(250);
       }, this)
     }
     else

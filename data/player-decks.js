@@ -1,5 +1,5 @@
 savedDecks = {
-  default: [
+  Default: [
     // 6 +0
     CardDictionary.base_plus_0,
     CardDictionary.base_plus_0,
@@ -34,7 +34,7 @@ savedDecks = {
     CardDictionary.base_miss
   ],
 
-  fyren: [
+  Fyren: [
     CardDictionary.base_miss,
     CardDictionary.base_miss,
     CardDictionary.base_miss,

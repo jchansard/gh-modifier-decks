@@ -13,6 +13,7 @@ class Logger
 
   log(text)
   {
-    this._$element.append(`<li>${text}</li>`);
+    this._$element.children("ul").append(`<li>${text}</li>`);
+    this._$element.scrollTop(1e9);
   }
 }

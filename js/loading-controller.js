@@ -4,8 +4,8 @@ class LoadingController
   {
     this._deckList = deckList;
     this._deckService = deckService;
-    this._$loadButtonElement = $("#load").on("click touch", this._handleLoadClicked.bind(this));
-    this._$loadDialogElement = $("#load-deck");
+    //this._$loadButtonElement = $("#load").on("click touch", this._handleLoadClicked.bind(this));
+    this._$loadDialogElement = $("#load");
     this._logger = logger;
     this._storage = storage || window.localStorage;
     this.init();
@@ -14,6 +14,7 @@ class LoadingController
   init()
   {
     this._tryLoadFromLocalStorage();
+    this._populateList();
   }
 
   _tryLoadFromLocalStorage()
@@ -26,9 +27,25 @@ class LoadingController
     else
     {
       this._logger.log("Loaded default deck.")
-      loadedDeck = this._deckList.default;
+      loadedDeck = this._deckList.Default;
     }
     this._deckService.deck = new Deck(loadedDeck);
+  }
+
+  _populateList()
+  {
+    var $newSelection;
+    var loadingController = this;
+    Object.keys(this._deckList).forEach(function(deckList)
+    {
+      $newSelection = $("<option>", {
+        text: `${deckList}`,
+        click: function() {
+          loadingController._loadSavedDeck(deckList);
+        }
+      })
+      this._$loadDialogElement.append($newSelection);
+    }, this);
   }
 
   _handleLoadClicked()

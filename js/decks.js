@@ -67,6 +67,11 @@ class Deck
     return emptiedCards;
   }
 
+  forEach(fn, thisArg)
+  {
+    this._deck.forEach(fn, thisArg)
+  }
+
   toString()
   {
     console.dir(this._deck);
@@ -78,7 +83,7 @@ class Card
   constructor(cardData)
   {
     this.name = cardData.name;
-    this.img = "assets/" + cardData.img + ".jpg";
+    this.img = cardData.img;
     this.discardOnPlay = cardData.discardOnPlay || false;
   }
 }

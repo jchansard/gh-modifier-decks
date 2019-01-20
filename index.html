@@ -1,18 +1,40 @@
 <!DOCTYPE html>
- <html>
+<meta charset="utf-8"/>
+ <html lang="en">
     <head>
       <title>modifier decks</title>
+      <link rel="stylesheet" type="text/css" href="css/style.css">
     </head>
     <body>
-      <div id="deck-in-play"></div>
-      <div id="load-deck"></div>
-      <button id="draw-one">Draw 1</button>
-      <button id="draw-two">Draw 2</button>
-      <button id="shuffle">Shuffle</button>
-      <button id="add-blessing">Add Blessing</button>
-      <button id="add-curse">Add Curse</button>
-      <button id="load">Load</button>
-      <div id="log"></div>
+      <div id="container">
+        <header>
+          <div id="load-commands">
+            <label for="load">Loaded deck:</label>
+            <select id="load">
+            </select>
+          </div>
+        </header>
+        <div id="content">
+          <div id="deck-in-play">
+            <span id="card-container"></span>
+          </div>
+          <div id="load-deck"></div>
+          <div id="draw-commands">
+            <button id="draw-one">Draw 1</button>
+            <button id="draw-two">Draw 2</button>
+            <button id="shuffle">Shuffle</button>
+          </div>
+          <div id="deck-commands">
+            <div id="blessing-counter-container">
+              <button id="add-blessing">Add Blessing (0)</button>
+            </div>
+            <div id="curse-counter-container">
+              <button id="add-curse">Add Curse (0)</button>
+            </div>
+          </div>
+          <div id="log"></div>
+        </div>
+      </div>
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
       <script type="text/javascript" src="js/decks.js"></script>
       <script type="text/javascript" src="js/deck-service.js"></script>

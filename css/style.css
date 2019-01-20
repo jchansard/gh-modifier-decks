@@ -1,0 +1,95 @@
+@import "https://fonts.googleapis.com/css?family=Pirata+One";
+@import "https://fonts.googleapis.com/css?family=Open+Sans";
+
+/* body and container*/
+body
+{
+  background-color: black;
+}
+
+#container
+{
+  margin: 0 auto;
+  width: 50%;
+  min-width: 400px;
+}
+
+/* header */
+header
+{
+  border-bottom: 0px solid;
+}
+header label
+{
+  font-family: "Pirata One", serif;
+  font-size: 1.5em;
+  color: #DFEBE7;
+}
+
+header select
+{
+  font-size: 1.5em;
+  font-family: "Pirata One", serif;
+  background-color: black;
+  color: #DFEBE7;
+  border: 0px;
+  padding-right: .2em;
+}
+
+/* content containers*/
+#deck-in-play, #draw-commands, #deck-commands, #log
+{
+  margin-top: .5em;
+  text-align: center;
+}
+
+#load-commands
+{
+  text-align: right;
+}
+
+#blessing-counter-container, #curse-counter-container
+{
+  display: inline-block;
+}
+
+/* log */
+#log
+{
+  text-align: left;
+  font-family: "Open Sans", sans-serif;
+  color: #DFEBE7;
+  max-height: 24em;
+  overflow: auto;
+  border: 1px solid #605F5D;
+}
+
+#log ul li
+{
+  list-style-type: none;
+}
+
+/* buttons */
+#content button
+{
+  font-family: "Pirata One", serif;
+  background-color: #DFEBE7;
+  color: #2C2822;
+  font-size: 2em;
+  border: 0px;
+  min-width: 5em;
+  border-radius: 10px;
+  padding-left: .5em;
+  padding-right: .5em;
+}
+
+/* cards */
+#deck-in-play img.card
+{
+  display: inline-block;
+  max-width: 40%;
+  margin: auto;
+  padding-left: .5em;
+  padding-right: .5em;
+  border-radius: 20px;
+}

@@ -12,9 +12,9 @@ class DeckController
 
   init()
   {
-    this._$cardsInPlayElement = $("#deck-in-play");
+    this._$cardsInPlayElement = $("#card-container");
     this._$logElement = $("#log");
-    $("button#draw-one,#deck-in-play").on("click touch", this._handleDraw.bind(this));
+    $("button#draw-one,#card-container").on("click touch", this._handleDraw.bind(this));
     $("button#draw-two").on("click touch", this._handleDrawTwo.bind(this));
     $("button#shuffle").on("click touch", this._handleShuffle.bind(this));
     $("button#add-blessing").on("click touch", this._handleAddBlessing.bind(this));
@@ -27,7 +27,8 @@ class DeckController
   {
     this._drawDeck = newDeck.shuffle();
     this._playedDeck = new Deck();
-    this._$cardsInPlayElement.html("<img src='assets/back.jpg'/>");
+    this._inPlayDeck = new Deck();
+    this._resetDrawDeck(false);
   }
 
   _handleDraw()
@@ -45,17 +46,18 @@ class DeckController
     // move cards in play to played, and then shuffle all cards
     this._playedDeck.addDeck(this._inPlayDeck);
     this._resetDrawDeck(true);
-    this._$cardsInPlayElement.html("<img src='assets/back.jpg'/>");
   }
 
   _handleAddBlessing()
   {
     this._addToDrawDeckAndShuffle(new Card(CardDictionary.blessing));
+    this._modifyCounter("add-blessing", 1);
   }
 
   _handleAddCurse()
   {
     this._addToDrawDeckAndShuffle(new Card(CardDictionary.curse));
+    this._modifyCounter("add-curse", 1);
   }
 
   _drawNewCards(numCards)
@@ -79,17 +81,20 @@ class DeckController
     this._logger.log(`Drew a ${card.name}.`);
 
     this._inPlayDeck.addCard(card);
-    this._$cardsInPlayElement.append(`<img src="${card.img}"/>`);
+    this._drawInPlayDeck();
   }
 
   _resetDrawDeck(shouldShuffle)
   {
-    this._logger.log("Adding played cards to draw deck.")
-    this._drawDeck.addDeck(this._playedDeck);
+    if (this._playedDeck.length > 0)
+    {
+      this._logger.log("Adding played cards to draw deck.")
+      this._drawDeck.addDeck(this._playedDeck);
+    }
     if (shouldShuffle) {
       this._shuffle();
     }
-    //this._$cardsInPlayElement.html("<img src='assets/back.jpg'/>");
+    this._drawInPlayDeck();
   }
 
   _discardInPlayCards()
@@ -105,21 +110,44 @@ class DeckController
     for (var i = this._inPlayDeck.length - 1; i >= 0; i--)
     {
       card = this._inPlayDeck.getCard(i);
-      console.dir(card);
       if (card.discardOnPlay)
       {
         this._logger.log(`Removing ${card.name} from deck.`)
         this._inPlayDeck.removeCard(i);
+        this._modifyCounter(`add-${card.name}`, -1);
       }
     }
   }
 
   _addToDrawDeckAndShuffle(card)
   {
-    console.dir(card);
     this._logger.log(`Adding ${card.name} to deck.`)
     this._drawDeck.addCard(card);
     this._shuffle();
+  }
+
+  _drawInPlayDeck()
+  {
+    if (this._inPlayDeck.length > 0)
+    {
+      this._$cardsInPlayElement.empty();
+      this._inPlayDeck.forEach(function(card) {
+        this._$cardsInPlayElement.append(`<img class="card" src="${card.img}"/>`);
+      }, this)
+    }
+    else
+    {
+      this._$cardsInPlayElement.html(`<img class="card" src="assets/back.jpg"/>`);
+    }
+  }
+
+  _modifyCounter(elementID, toAdd)
+  {
+    let buttonHTML = $(`#${elementID}`).html();
+    let counter = buttonHTML.match(/\((\d)\)/)[1];
+    counter = parseInt(counter) + toAdd;
+    $(`#${elementID}`).html(buttonHTML.replace(/\((\d)\)/,`(${counter})`));
+
   }
 
   _shuffle()

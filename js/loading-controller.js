@@ -13,8 +13,9 @@ class LoadingController
 
   init()
   {
-    this._tryLoadFromLocalStorage();
+    this._$loadDialogElement.change(this._loadSelectedDeck.bind(this));
     this._populateList();
+    this._tryLoadFromLocalStorage();
   }
 
   _tryLoadFromLocalStorage()
@@ -26,7 +27,7 @@ class LoadingController
     }
     else
     {
-      this._logger.log("Loaded default deck.")
+      this._logger.log("Loaded default deck.");
       loadedDeck = this._deckList.Default;
     }
     this._deckService.deck = new Deck(loadedDeck);
@@ -35,16 +36,14 @@ class LoadingController
   _populateList()
   {
     var $newSelection;
-    var loadingController = this;
     Object.keys(this._deckList).forEach(function(deckList)
     {
-      $newSelection = $("<option>", {
-        text: `${deckList}`,
-        click: function() {
-          loadingController._loadSavedDeck(deckList);
-        }
-      })
+      $newSelection = $(`<option value=${deckList}>${deckList}</option>`);
       this._$loadDialogElement.append($newSelection);
+      if (deckList = this._storage.getItem("loadedDeck"))
+      {
+        this._$loadDialogElement.val(deckList);
+      }
     }, this);
   }
 
@@ -61,15 +60,20 @@ class LoadingController
         click: function() {
           loadingController._loadSavedDeck(deckList);
         }
-      })
+      });
       this._$loadDialogElement.append($newButton);
     }, this);
   }
 
+  _loadSelectedDeck()
+  {
+    this._loadSavedDeck(this._$loadDialogElement.val());
+  }
+
   _loadSavedDeck(deckToLoad)
   {
-    this._logger.log(`Loaded deck: ${deckToLoad}.`)
+    this._logger.log(`Loaded deck: ${deckToLoad}.`);
     this._deckService.deck = new Deck(this._deckList[deckToLoad]);
-    this._storage.setItem("loadedDeck", deckToLoad)
+    this._storage.setItem("loadedDeck", deckToLoad);
   }
 }

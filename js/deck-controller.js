@@ -40,9 +40,8 @@ class DeckController
     this._playedDeck = new Deck();
     this._inPlayDeck = new Deck();
     this._resetDrawDeck(false);
-
-
-    let $cardContainer = this._$cardContainerElement;
+    this._modifyCounter("add-blessing", undefined, 0)
+    this._modifyCounter("add-curse", undefined, 0)
   }
 
   _handleDraw()
@@ -155,12 +154,20 @@ class DeckController
     }
   }
 
-  _modifyCounter(elementID, toAdd)
+  _modifyCounter(elementID, toAdd, overrideValue)
   {
     let buttonHTML = $(`#${elementID}`).html();
     let countRegEx = /\((\d+)\)/;
-    let counter = buttonHTML.match(countRegEx)[1];
-    counter = parseInt(counter) + toAdd;
+    let counter;
+    if (overrideValue === undefined)
+    {
+      counter = buttonHTML.match(countRegEx)[1];
+      counter = parseInt(counter) + toAdd;
+    }
+    else
+    {
+      counter = overrideValue;
+    }
     $(`#${elementID}`).html(buttonHTML.replace(countRegEx,`(${counter})`));
 
   }
